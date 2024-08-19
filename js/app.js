@@ -6,6 +6,9 @@ const mensajeFinal = document.querySelector('.mensaje-final')
 const imagenLateral = document.querySelector('.lateral-fig')
 const divLateral = document.querySelector('.lateral-div')
 const copiarBtn = document.querySelector('.copiar-btn')
+const notificacion = document.querySelector('.notificacion')
+
+const iconoExito = `<i class="fa-regular fa-circle-check icono-noti"></i>`
 
 let remplazo = [
   ["e", "enter"],
@@ -32,6 +35,13 @@ function mostrarLateral() {
   lateral.style.justifyContent = 'center'
 }
 
+function mensajeOperacion(mensaje, icono) {
+  notificacion.innerHTML = `${mensaje} ${icono}`
+  setTimeout(()=> {
+    notificacion.innerHTML = ''
+  }, 4000)
+}
+
 encriptarBtn.addEventListener('click', ()=> {
   const texto = usuarioTexto.value.toLowerCase()
 
@@ -47,8 +57,11 @@ encriptarBtn.addEventListener('click', ()=> {
     const textoEncriptado = encriptarTexto(texto)
     limpiarLateral(textoEncriptado)
     usuarioTexto.value = ''
+    mensajeOperacion('Texto encriptado exitosamente', iconoExito)
+    copiarBtn.focus()
   } else {
     mostrarLateral()
+    mensajeOperacion('', '')
   }
 })
 
@@ -67,8 +80,11 @@ desencriptarBtn.addEventListener('click', ()=> {
     const textoDesencriptado = desencriptarTexto(texto)
     limpiarLateral(textoDesencriptado)
     usuarioTexto.value = ''
+    mensajeOperacion('Texto desencriptado exitosamente', iconoExito)
+    copiarBtn.focus()
   } else {
     mostrarLateral()
+    mensajeOperacion('', '')
   }
 })
 

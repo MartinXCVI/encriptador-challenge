@@ -78,6 +78,17 @@ html {
   color: #0A3871;
 }
 
+.notificacion {
+  font-size: 1rem;
+  color: springgreen;
+  text-shadow: 0 0 0.025rem #303030;
+  margin-top: 0.5rem;
+}
+
+.icono-noti {
+  color: springgreen;
+}
+
 .lateral {
   width: 30%;
   min-width: 30%;
@@ -146,13 +157,14 @@ html {
 }
 
 .advertencia {
-  font-size: 0.9rem;
-  padding-bottom: 0.25rem;
+  font-size: 0.8rem;
+  padding-top: 0.35rem;
+  padding-bottom: 0.35rem;
   padding-left: 0.25rem;
 }
 
 .simbolo {
-  width: 0.75rem;
+  width: 0.65rem;
 }
 
 .botones {
@@ -167,10 +179,19 @@ html {
   border-radius: 3rem;
 }
 
+.btn {
+  box-shadow: 0 0.25rem 0.25rem 0 rgba(119, 136, 153, 0.9);
+  transition: 0.3s linear all;
+}
+
 .encriptar-btn {
   background-color: #0A3871;
   color: #fefefe;
   margin-right: 0.5rem;
+}
+
+.encriptar-btn:hover {
+  background-color: #255897;
 }
 
 .desencriptar-btn {
@@ -179,7 +200,15 @@ html {
   border: 1px solid #0A3871;
 }
 
+.desencriptar-btn:hover, .copiar-btn:hover {
+  background-color: wheat;
+}
+
 @media all and (max-width: 480px) {
+
+  #main {
+    padding: 1.5rem 1rem;
+  }
 
   .botones-section {
     width: 100%;
@@ -194,6 +223,7 @@ html {
   }
 
   .encriptar-btn {
+    margin-right: 0;
     margin-bottom: 0.75rem;
   }
 
@@ -204,8 +234,16 @@ html {
 
 @media all and (min-width: 481px) and (max-width: 991px) {
 
+  #main {
+    padding: 1.75rem 1.75rem;
+  }
+
   .botones-section {
     width: 85%;
+  }
+
+  .botones {
+    justify-content: center;
   }
 
   .copiar-btn {
@@ -217,7 +255,6 @@ html {
 
   #main {
     flex-direction: column;
-    padding: 1.5rem 1rem;
   }
 
   .panel-usuario {
@@ -226,6 +263,10 @@ html {
 
   #usuario-texto {
     min-height: 50vh;
+  }
+
+  .advertencia {
+    text-align: center;
   }
 
   .lateral {
