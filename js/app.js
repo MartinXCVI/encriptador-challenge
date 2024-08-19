@@ -25,43 +25,51 @@ function limpiarLateral(mensaje) {
 }
 
 function mostrarLateral() {
-  mensajeFinal.classList.toggle('ocultar')
-  imagenLateral.classList.toggle('ocultar')
-  divLateral.classList.toggle('ocultar')
-  copiarBtn.classList.toggle('ocultar')
+  mensajeFinal.classList.add('ocultar')
+  imagenLateral.classList.remove('ocultar')
+  divLateral.classList.remove('ocultar')
+  copiarBtn.classList.add('ocultar')
   lateral.style.justifyContent = 'center'
 }
 
 encriptarBtn.addEventListener('click', ()=> {
   const texto = usuarioTexto.value.toLowerCase()
 
-  function encriptarTexto(textoNuevo) {
-    for( let i = 0; i < remplazo.length; i++) {
-      if(textoNuevo.includes(remplazo[i][0])) {
-        textoNuevo = textoNuevo.replaceAll(remplazo[i][0], remplazo[i][1])
+  if(usuarioTexto.value != '') {
+    function encriptarTexto(textoNuevo) {
+      for( let i = 0; i < remplazo.length; i++) {
+        if(textoNuevo.includes(remplazo[i][0])) {
+          textoNuevo = textoNuevo.replaceAll(remplazo[i][0], remplazo[i][1])
+        }
       }
+      return textoNuevo
     }
-    return textoNuevo
+    const textoEncriptado = encriptarTexto(texto)
+    limpiarLateral(textoEncriptado)
+    usuarioTexto.value = ''
+  } else {
+    mostrarLateral()
   }
-  const textoEncriptado = encriptarTexto(texto)
-  limpiarLateral(textoEncriptado)
-  usuarioTexto.value = ''
 })
 
 desencriptarBtn.addEventListener('click', ()=> {
   const texto = usuarioTexto.value.toLowerCase()
-  
-  function desencriptarTexto(textoNuevo) {
-    for(let i = 0; i < remplazo.length; i++) {
-      if(textoNuevo.includes(remplazo[i][1])) {
-        textoNuevo = textoNuevo.replaceAll(remplazo[i][1], remplazo[i][0])
+
+  if(usuarioTexto.value != '') {
+    function desencriptarTexto(textoNuevo) {
+      for(let i = 0; i < remplazo.length; i++) {
+        if(textoNuevo.includes(remplazo[i][1])) {
+          textoNuevo = textoNuevo.replaceAll(remplazo[i][1], remplazo[i][0])
+        }
       }
+      return textoNuevo
     }
-    return textoNuevo
+    const textoDesencriptado = desencriptarTexto(texto)
+    limpiarLateral(textoDesencriptado)
+    usuarioTexto.value = ''
+  } else {
+    mostrarLateral()
   }
-  const textoDesencriptado = desencriptarTexto(texto)
-  limpiarLateral(textoDesencriptado)
-  usuarioTexto.value = ''
 })
 
 copiarBtn.addEventListener('click', ()=> {
