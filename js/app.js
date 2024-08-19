@@ -9,6 +9,8 @@ const copiarBtn = document.querySelector('.copiar-btn')
 const notificacion = document.querySelector('.notificacion')
 
 const iconoExito = `<i class="fa-regular fa-circle-check icono-noti"></i>`
+const iconoFallo = `<i class="fa-regular fa-circle-xmark icono-fallo"></i>`
+const iconoCopia = `<i class="fa-solid fa-copy icono-copia"></i>`
 
 let remplazo = [
   ["e", "enter"],
@@ -18,6 +20,22 @@ let remplazo = [
   ["u", "ufat"]
 ]
 
+// Filtrado de caracteres inválidos
+function validar(texto){
+  const noValidas = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","Ñ","O","P","Q","R","S","T","U","V","W","X","Y","Z","Á","É","Í","Ó","Ú","á","é","í","ó","ú"];
+  let contador = 0;
+
+  for(let i = 0; i < texto.length; i++){
+    for(let j = 0; j < noValidas.length; j++) {
+      if(texto.charAt(i) == noValidas[j]){
+        contador++;
+      }
+    }
+  }
+  return contador == 0 ? true : false
+}
+
+// Muestra del texto encriptado/desencriptado
 function limpiarLateral(mensaje) {
   mensajeFinal.classList.remove('ocultar')
   mensajeFinal.innerHTML = mensaje
@@ -27,6 +45,7 @@ function limpiarLateral(mensaje) {
   lateral.style.justifyContent = 'space-between'
 }
 
+// Mostrar panel lateral
 function mostrarLateral() {
   mensajeFinal.classList.add('ocultar')
   imagenLateral.classList.remove('ocultar')
@@ -35,40 +54,52 @@ function mostrarLateral() {
   lateral.style.justifyContent = 'center'
 }
 
+// Mensajes de notificacion al usuario
 function mensajeOperacion(mensaje, icono) {
   notificacion.innerHTML = `${mensaje} ${icono}`
+  notificacion.style.color = 'springgreen'
   setTimeout(()=> {
     notificacion.innerHTML = ''
-  }, 4000)
+  }, 5000)
 }
 
+//----- ENCRIPTACIÓN
 encriptarBtn.addEventListener('click', ()=> {
-  const texto = usuarioTexto.value.toLowerCase()
+  const texto = usuarioTexto.value
 
-  if(usuarioTexto.value != '') {
-    function encriptarTexto(textoNuevo) {
-      for( let i = 0; i < remplazo.length; i++) {
-        if(textoNuevo.includes(remplazo[i][0])) {
-          textoNuevo = textoNuevo.replaceAll(remplazo[i][0], remplazo[i][1])
-        }
-      }
-      return textoNuevo
-    }
-    const textoEncriptado = encriptarTexto(texto)
-    limpiarLateral(textoEncriptado)
-    usuarioTexto.value = ''
-    mensajeOperacion('Texto encriptado exitosamente', iconoExito)
-    copiarBtn.focus()
-  } else {
+  if(!validar(texto)) {
+    mensajeOperacion('Texto inválido. Ni mayúsculas ni tildes.', iconoFallo)
+    notificacion.style.color = 'red'
     mostrarLateral()
-    mensajeOperacion('', '')
-  }
+  } else if(texto != '') {
+      function encriptarTexto(textoNuevo) {
+        for( let i = 0; i < remplazo.length; i++) {
+          if(textoNuevo.includes(remplazo[i][0])) {
+            textoNuevo = textoNuevo.replaceAll(remplazo[i][0], remplazo[i][1])
+          }
+        }
+        return textoNuevo
+      }
+      const textoEncriptado = encriptarTexto(texto)
+      limpiarLateral(textoEncriptado)
+      usuarioTexto.value = ''
+      mensajeOperacion('Texto encriptado exitosamente', iconoExito)
+      copiarBtn.focus()
+    } else {
+      mostrarLateral()
+      mensajeOperacion('', '')
+    }
 })
 
+//----- DESENCRIPTACIÓN
 desencriptarBtn.addEventListener('click', ()=> {
-  const texto = usuarioTexto.value.toLowerCase()
+  const texto = usuarioTexto.value
 
-  if(usuarioTexto.value != '') {
+  if(!validar(texto)) {
+    mensajeOperacion('Texto inválido. Ni mayúsculas ni tildes.', iconoFallo)
+    notificacion.style.color = 'red'
+    mostrarLateral()
+  } else if(texto != '') {
     function desencriptarTexto(textoNuevo) {
       for(let i = 0; i < remplazo.length; i++) {
         if(textoNuevo.includes(remplazo[i][1])) {
@@ -88,10 +119,13 @@ desencriptarBtn.addEventListener('click', ()=> {
   }
 })
 
+// Boton de copiar la encriptación/desencriptación
 copiarBtn.addEventListener('click', ()=> {
   let texto = mensajeFinal
   navigator.clipboard.writeText(texto.value)
   mensajeFinal.innerHTML = ''
   mostrarLateral()
   usuarioTexto.focus()
+  mensajeOperacion('Texto copiado y listo', iconoCopia)
+  notificacion.style.color = '#0A3871'
 })
