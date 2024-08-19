@@ -16,17 +16,16 @@ let remplazo = [
 ]
 
 function limpiarLateral(mensaje) {
-  mensajeFinal.classList.toggle('ocultar')
+  mensajeFinal.classList.remove('ocultar')
   mensajeFinal.innerHTML = mensaje
-  imagenLateral.classList.toggle('ocultar')
-  divLateral.classList.toggle('ocultar')
-  copiarBtn.classList.toggle('ocultar')
+  imagenLateral.classList.add('ocultar')
+  divLateral.classList.add('ocultar')
+  copiarBtn.classList.remove('ocultar')
   lateral.style.justifyContent = 'space-between'
 }
 
 function mostrarLateral() {
   mensajeFinal.classList.toggle('ocultar')
-  mensajeFinal.innerHTML = ''
   imagenLateral.classList.toggle('ocultar')
   divLateral.classList.toggle('ocultar')
   copiarBtn.classList.toggle('ocultar')
@@ -51,6 +50,7 @@ encriptarBtn.addEventListener('click', ()=> {
 
 desencriptarBtn.addEventListener('click', ()=> {
   const texto = usuarioTexto.value.toLowerCase()
+  
   function desencriptarTexto(textoNuevo) {
     for(let i = 0; i < remplazo.length; i++) {
       if(textoNuevo.includes(remplazo[i][1])) {
