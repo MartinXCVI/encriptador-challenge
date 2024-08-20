@@ -22,7 +22,12 @@ let remplazo = [
 
 // Filtrado de caracteres inválidos
 function validar(texto){
-  const noValidas = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","Ñ","O","P","Q","R","S","T","U","V","W","X","Y","Z","Á","É","Í","Ó","Ú","á","é","í","ó","ú"];
+  // RegEx para filtrar símbolos
+  const patron = /^[a-zA-Z]/ 
+  const noValidas = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L",
+    "M", "N", "Ñ", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "Á",
+    "É", "Í", "Ó", "Ú", "á", "é", "í", "ó", "ú", "À", "È", "Ì", "Ò", "Ù", "à",
+    "è", "ì", "ò", "ù"]
   let contador = 0;
 
   for(let i = 0; i < texto.length; i++){
@@ -32,7 +37,7 @@ function validar(texto){
       }
     }
   }
-  return contador == 0 ? true : false
+  return contador == 0 && patron.test(texto) == true ? true : false
 }
 
 // Muestra del texto encriptado/desencriptado
@@ -63,13 +68,18 @@ function mensajeOperacion(mensaje, icono) {
   }, 5000)
 }
 
+// Color del mensaje notificativo
+function notificacionColor(color) {
+  notificacion.style.color = color
+}
+
 //----- ENCRIPTACIÓN
 encriptarBtn.addEventListener('click', ()=> {
   const texto = usuarioTexto.value
 
   if(!validar(texto)) {
-    mensajeOperacion('Texto inválido. Ni mayúsculas ni tildes.', iconoFallo)
-    notificacion.style.color = 'red'
+    mensajeOperacion('Texto inválido. Ni mayúsculas, ni símbolos.', iconoFallo)
+    notificacionColor('red')
     mostrarLateral()
   } else if(texto != '') {
       function encriptarTexto(textoNuevo) {
@@ -85,10 +95,10 @@ encriptarBtn.addEventListener('click', ()=> {
       usuarioTexto.value = ''
       mensajeOperacion('Texto encriptado exitosamente', iconoExito)
       copiarBtn.focus()
-    } else {
-      mostrarLateral()
-      mensajeOperacion('', '')
-    }
+  } else {
+    mostrarLateral()
+    mensajeOperacion('', '')
+  }
 })
 
 //----- DESENCRIPTACIÓN
@@ -96,23 +106,23 @@ desencriptarBtn.addEventListener('click', ()=> {
   const texto = usuarioTexto.value
 
   if(!validar(texto)) {
-    mensajeOperacion('Texto inválido. Ni mayúsculas ni tildes.', iconoFallo)
-    notificacion.style.color = 'red'
+    mensajeOperacion('Texto inválido. Ni mayúsculas ni símbolos.', iconoFallo)
+    notificacionColor('red')
     mostrarLateral()
   } else if(texto != '') {
-    function desencriptarTexto(textoNuevo) {
-      for(let i = 0; i < remplazo.length; i++) {
-        if(textoNuevo.includes(remplazo[i][1])) {
-          textoNuevo = textoNuevo.replaceAll(remplazo[i][1], remplazo[i][0])
+      function desencriptarTexto(textoNuevo) {
+        for(let i = 0; i < remplazo.length; i++) {
+          if(textoNuevo.includes(remplazo[i][1])) {
+            textoNuevo = textoNuevo.replaceAll(remplazo[i][1], remplazo[i][0])
+          }
         }
+        return textoNuevo
       }
-      return textoNuevo
-    }
-    const textoDesencriptado = desencriptarTexto(texto)
-    limpiarLateral(textoDesencriptado)
-    usuarioTexto.value = ''
-    mensajeOperacion('Texto desencriptado exitosamente', iconoExito)
-    copiarBtn.focus()
+      const textoDesencriptado = desencriptarTexto(texto)
+      limpiarLateral(textoDesencriptado)
+      usuarioTexto.value = ''
+      mensajeOperacion('Texto desencriptado exitosamente', iconoExito)
+      copiarBtn.focus()
   } else {
     mostrarLateral()
     mensajeOperacion('', '')
@@ -127,5 +137,5 @@ copiarBtn.addEventListener('click', ()=> {
   mostrarLateral()
   usuarioTexto.focus()
   mensajeOperacion('Texto copiado y listo', iconoCopia)
-  notificacion.style.color = '#0A3871'
+  notificacionColor('#0a3871')
 })

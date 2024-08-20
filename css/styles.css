@@ -8,6 +8,11 @@
   color: #303030;
 }
 
+*::selection {
+  background-color: #0A3871;
+  color: white;
+}
+
 .ocultar {
   display: none !important;
   flex-direction: unset;
@@ -47,11 +52,12 @@ html {
   display: flex;
   justify-content: space-evenly;
   padding: 1rem 0rem;
+  margin-bottom: 0.75rem;
 }
 
 .encriptador-contenedor {
   min-width: 55%;
-  max-height: 85vh;
+  max-height: 75vh;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -65,7 +71,7 @@ html {
 
 #usuario-texto {
   width: 100%;
-  min-height: 65vh;
+  min-height: 55vh;
   padding: 3rem 1rem;
   resize: none;
   border-radius: 2rem;
@@ -79,6 +85,7 @@ html {
 }
 
 .notificacion {
+  min-height: 1.5rem;
   font-size: 1rem;
   color: springgreen;
   text-shadow: 0 0 0.025rem #303030;
@@ -100,7 +107,7 @@ html {
 .lateral {
   width: 30%;
   min-width: 30%;
-  min-height: 85vh;
+  min-height: 65vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -113,7 +120,7 @@ html {
 
 .mensaje-final {
   width: 95%;
-  min-height: 70vh;
+  min-height: 60vh;
   resize: none;
   background-color: none;
   font-size: 1.25rem;
@@ -129,6 +136,12 @@ html {
 
 .lateral-img {
   width: 100%;
+  transition: 0.3s linear all;
+}
+
+.lateral-img:hover {
+  cursor: pointer;
+  transform: scale(1.1);
 }
 
 .lateral-div {
@@ -151,7 +164,7 @@ html {
 
 .copiar-btn {
   width: 100%;
-  padding: 1rem;
+  padding: 0.75rem 1rem;
   border-radius: 3rem;
   background-color: lightgray;
   color: #050505;
@@ -183,7 +196,7 @@ html {
 
 .botones button {
   width: 45%;
-  padding: 1rem;
+  padding: 0.75rem 1rem;
   border-radius: 3rem;
 }
 
@@ -214,10 +227,47 @@ html {
   background-color: wheat;
 }
 
+.footer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+}
+
+.firma {
+  font-size: 0.9rem;
+  text-align: center;
+  color: #303030;
+  padding: 0.35rem 1.25rem;
+  border: 2px solid springgreen;
+  border-radius: 3rem;
+  text-shadow: 0 0 0.1rem #303030;
+  transition: 0.3s linear all;
+}
+
+.firma:hover {
+  background-color: springgreen;
+}
+
+.firma a, .github-icono {
+  color: #0A3871;
+  text-decoration: none;
+  transition: 0.3s linear all;
+}
+
+.github-icono:hover {
+  transform: rotate(720deg);
+}
+
 @media all and (max-width: 480px) {
 
   #main {
     padding: 1.5rem 1rem;
+  }
+
+  .notificacion {
+    font-size: 0.9rem;
   }
 
   .botones-section {
@@ -239,6 +289,10 @@ html {
 
   .copiar-btn {
     width: 100%;
+  }
+
+  .firma {
+    font-size: 0.8rem;
   }
 }
 
