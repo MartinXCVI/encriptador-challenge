@@ -23,7 +23,7 @@ let remplazo = [
 // Filtrado de caracteres inválidos
 function validar(texto){
   // RegEx para filtrar símbolos
-  const patron = /^[a-zA-Z]/ 
+  const patron = /^[a-zA-Z]+$/ 
   const noValidas = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L",
     "M", "N", "Ñ", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "Á",
     "É", "Í", "Ó", "Ú", "á", "é", "í", "ó", "ú", "À", "È", "Ì", "Ò", "Ù", "à",
