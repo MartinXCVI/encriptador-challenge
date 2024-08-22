@@ -1,4 +1,5 @@
 # Encriptador de Texto - Oracle Next Education - G7, 2024
+![Captura del encriptador en versión de escritorio](/images/screenshot.png 'Encriptador en versión de escritorio')
 
 ## Introducción
 Aplicación web con funcionalidades para encriptar y desencriptar textos. Funcionalidades adicionales para copiar los textos resultantes, exhibición y ocultamiento de elementos visuales y mensajes de confirmación sobre la realización de cada operación o la nulidad de las mismas en casos de utilizaciones erroneas del programa.
